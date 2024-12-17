@@ -13,6 +13,33 @@
             $email = $value->email;
         }
     @endphp
+    {{-- <style>
+         body{
+            trans
+         }
+    </style> --}}
+    <style>
+         @page {
+      size: 80mm 2100mm;
+      margin: 0;
+    }
+
+    /* Set the content size for the page */
+    body {
+      width: 80mm;
+      height: 2100mm;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Example styling */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10mm;
+      line-height: 1.5;
+    }
+    </style>
     <div class="invoice-header">
         <div class="ui left aligned grid">
             <div class="row">
