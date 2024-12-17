@@ -1,0 +1,150 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery Validin Plugin Examples</title>
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+
+      font-family: 'Roboto', 'Open Sans', helvetica, arial, sans-serif;
+      background-color:#fafafa;
+    }
+.container {width: 90%;
+      max-width: 500px;
+      margin: 150px auto;}
+    input {
+      display: block;
+      margin: .7em 0 3em;
+      padding: .4em;
+      font-size: 1.4em;
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #23bea1;
+    }
+
+    input + span,
+    .validation_error + span {
+      display: block;
+      margin: -3.8em 0 4em;
+    }
+
+    code {
+      display: block;
+      padding: 1em;
+      background: #ccc;
+    }
+  </style>
+  <link rel="Stylesheet" href="validin.css" type="text/css" media="all" />
+</head>
+
+<body>
+<div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="https://www.jqueryscript.net/form/Form-Field-Validation-jQuery-Validin.html">Download This Plugin</a></li>
+<li><a href="https://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+<div class="container">
+  <h1>jQuery Validin Plugin Examples</h1>
+
+  <form>
+    <input required>
+    <input validate="alpha">
+    <input validate="alpha_num">
+    <input validate="alpha_space">
+    <input validate="alpha_dash">
+    <input validate="alpha_num_dash">
+    <input validate="number">
+    <input validate="decimal">
+    <input validate="name">
+    <input validate="email">
+    <input validate="url">
+    <input validate="phone">
+    <input validate="zip">
+    <input validate="creditcard">
+    <input validate="regex:/[0-9a-z]{1,3}-\d*/i">
+    <span>valid value: 34Z-6 or abc-123</span>
+    <input validate="min:5">
+    <input validate="max:5">
+    <input validate="min_length:5">
+    <input validate="max_length:5">
+    <p>These two fields need to match:</p>
+    <input class="must_match">
+    <input validate="match:.must_match">
+    <input type="submit">
+  </form>
+
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="validin.js"></script>
+  <script>
+    $('form').validin({
+      feedback_delay: 500,
+      tests: {
+        'state_abbreviation': {
+          'regex': /[a-z]{2}/i,
+          'error_message': "State abbreviations are two letters long (eg. OR)"
+        }
+      },
+      onValidateInput: function(validation_info) {
+        console.log(validation_info.input);
+        console.log(validation_info.has_error);
+        console.log(validation_info.error_message);
+      }
+    });
+    $(':input:not([type="submit"])').each(function() {
+      $this = $(this);
+      html = $this[0].outerHTML;
+      html = html.replace('required=""', "required")
+        .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+
+      $this.before("<code>" + html + "</code>");
+    });
+  </script>
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

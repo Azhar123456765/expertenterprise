@@ -1,0 +1,15 @@
+input.invalid,
+textarea.invalid,
+select.invalid,
+.match_error,
+.match_error:focus {
+	border-color: #b00 !important;
+}
+
+.validation_error {
+	margin: .4em 0 1em;
+	color: #b00 !important;
+	font-size: .7em;
+	text-transform: uppercase;
+	letter-spacing: .15em;
+}

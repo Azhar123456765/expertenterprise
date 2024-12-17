@@ -1,0 +1,87 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    width: 150px; /* Adjust the logo width as needed */
+  }
+
+  .address {
+    font-weight: normal;
+    text-align: right;
+  }
+
+  .pdf-time {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+@php
+$buyer = json_decode(session()->get('pdf_data'));
+
+@endphp
+<div id="pdf_table">
+<div class="header">
+  <div>
+    <img src="path/to/your/logo.png" alt="Organization Logo" class="logo">
+  </div>
+  <div class="address">
+    Head Office Address:
+    <br>
+    <p> Your Head Office Address Here</p>
+  </div>
+</div>
+
+<h5 style="text-align: center;">Buyer</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>S.No</th>
+      @foreach($buyer[1] as $header => $value)
+        <th>{{ str_replace('_', ' ', $header) }}</th>
+      @endforeach
+    </tr>
+  </thead>
+  <tbody>
+    @php $id = 1 @endphp
+    @foreach($buyer as $row)
+      <tr>
+        <td>{{ $id }}</td>
+        @foreach($row as $value)
+          <td>
+            <span>{{ $value }}</span>
+          </td>
+        @endforeach
+      </tr>
+      @php $id++ @endphp
+    @endforeach
+  </tbody>
+</table>
+
+<div class="pdf-time">
+  Generated on: {{ date('Y-m-d H:i:s') }}
+</div>
+
+</div>

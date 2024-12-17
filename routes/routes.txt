@@ -1,0 +1,139 @@
+<?php
+
+use App\Http\Controllers\invoicecontroller;
+use App\Http\Controllers\maincontroller;
+use App\Http\Controllers\pdfController;
+use App\Http\Controllers\product;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+// ADMIN PANEL
+
+Route::get('/', [maincontroller::class, 'viewhome']);
+Route::get('/customize', [maincontroller::class, 'viewcustomize']);
+
+
+
+
+Route::get('/add-user', [maincontroller::class, 'view_add_user']);
+Route::get('/users', [maincontroller::class, 'viewusers']);
+Route::get('/user-rights/{id}', [maincontroller::class, 'user_rights']);
+Route::get('/edit-user/{id}', [maincontroller::class, 'view_edit_user']);
+// Route::get('/del_user{id}', [maincontroller::class, 'user_delete']);
+
+
+Route::get('/edit_buyer{id}', [maincontroller::class, 'view_edit_buyer']);
+Route::get('/buyers', [maincontroller::class, 'view_buyers']);
+Route::get('/add-buyer', [maincontroller::class, 'view_add_buyer']);
+Route::get('/view-buyer{id}', [maincontroller::class, 'view_single_buyer']);
+Route::get('/view_single_buyer{id}', [maincontroller::class, 'view_single_buyer']);
+
+
+
+Route::get('/edit_seller{id}', [maincontroller::class, 'view_edit_seller']);
+Route::get('/sellers', [maincontroller::class, 'view_sellers']);
+Route::get('/add-seller', [maincontroller::class, 'view_add_seller']);
+Route::get('/view-seller{id}', [maincontroller::class, 'view_single_seller']);
+Route::get('/view_single_seller{id}', [maincontroller::class, 'view_single_seller']);
+
+
+
+
+Route::get('/purchase_invoice', [maincontroller::class, 'purchase_invoice']);
+
+
+// ADMIN PANEL   ---   POST METHODS
+
+
+Route::post('/edit_user_form', [maincontroller::class, 'edit_user_form']);
+Route::post('/add_user_form', [maincontroller::class, 'add_user_form']);
+Route::post('/user_right_form', [maincontroller::class, 'user_right_form']);
+
+
+
+Route::post('/add_buyer_form', [maincontroller::class, 'add_buyer_form']);
+Route::post('/edit_buyer_form', [maincontroller::class, 'edit_buyer_form']);
+
+
+
+Route::post('/add_seller_form', [maincontroller::class, 'add_seller_form']);
+Route::post('/edit_seller_form', [maincontroller::class, 'edit_seller_form']);
+
+
+
+
+
+
+
+
+
+// POST METHODS
+
+
+
+
+Route::post('/customize-form', [maincontroller::class, 'customize_form']);
+Route::post('/login-check', [maincontroller::class, 'logincheck']);
+
+
+// GENERAL
+
+
+Route::get('/logout', [maincontroller::class, 'logout']);
+Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
+
+
+
+
+//        PDF
+
+
+
+
+Route::get('/buyer_pdf', [pdfController::class, 'buyer_pdf']);
+
+
+Route::get('/pdf', [pdfController::class, 'test_pdf']);
+
+
+
+
+
+// SEARCH
+
+Route::get('/buyer_search', [maincontroller::class, 'buyer_search']);
+
+
+
+
+
+
+// INVOICES
+
+Route::get('/purchase_invoice', [invoicecontroller::class, 'view_purchase_invoice']);
+Route::post('/purchase_invoice_form', [invoicecontroller::class, 'purchase_invoice_form']);
+
+
+
+// PRODUCT
+
+Route::get('/product_category', [product::class, 'product_category']);
+Route::post('/add_product_category', [product::class, 'add_product_category']);
+Route::post('/edit_product_category{id}', [product::class, 'edit_product_category']);
+Route::get('/product_category_delete{id}', [product::class, 'product_category_delete']);
+
+
+
+
+
