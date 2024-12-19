@@ -35,7 +35,16 @@
                             {{ $product->categories->category_name ?? null }}</option>
                         </select>
                     </div>
-
+                    <div class="col">
+                        <label for="type">Type</label>
+                        <select name="type" class="form-control select-type">
+                            @foreach ($type as $typeRow)
+                                <option value="{{ $typeRow->product_type_id }}}"
+                                    {{ $typeRow->product_type_id == ($typeRow->product->product_type ?? null) ? 'selected' : '' }}>
+                                    {{ $typeRow->type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
 

@@ -307,12 +307,26 @@
                             <select name="sales_officer" id="sales_officer" class="select-sales_officer">
                             </select>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="remark">Remarks</label>
+                            <div class="col-8">
+                                <input class="form-control" style="width: 219px !important;" type="text" id="remark"
+                                    name="remark" />
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <div class="col-3">
+                   
                     <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="remark">Remarks</label>
+                        <label class="col-3 col-form-label" for="remark">W.Customer Name</label>
+                        <div class="col-8">
+                            <input class="form-control" style="width: 219px !important;" type="text" id="remark"
+                                name="remark" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="remark">W.Customer Number</label>
                         <div class="col-8">
                             <input class="form-control" style="width: 219px !important;" type="text" id="remark"
                                 name="remark" />

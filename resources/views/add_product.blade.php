@@ -32,7 +32,14 @@
 
                             </select>
                         </div>
-
+                        <div class="col">
+                            <label for="type">Type</label>
+                            <select name="type" class="form-control select-type">
+                                @foreach ($type as $row)
+                                    <option value="{{ $row->type }}">{{ $row->type }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
 
