@@ -494,8 +494,8 @@
                     "=""="">
                             <select name="cash_receive_account" id="cash_receive_account"
                                 class="select-assets-account">
-                                <option value="{{ $single_invoice->CashReceiveAccount->id }}" selected>
-                                    {{ $single_invoice->CashReceiveAccount->account_name }}</option>
+                                <option value="{{ $single_invoice->CashReceiveAccount->id ?? null }}" selected>
+                                    {{ $single_invoice->CashReceiveAccount->account_name ?? null }}</option>
                             </select>
                         </div>
                         <input type="number" step="any" name="cash_receive" id="cash_receive"
