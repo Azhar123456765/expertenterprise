@@ -21,7 +21,7 @@ class CreateSaleInvoicesTable extends Migration
             $table->unsignedBigInteger('item');
             $table->date('date');
             $table->unsignedBigInteger('sales_officer')->nullable();
-            $table->unsignedBigInteger('buyer');
+            $table->unsignedBigInteger('buyer')->nullable();
             $table->text('remark')->nullable();
 
             $table->text('unit')->nullable();
@@ -37,7 +37,8 @@ class CreateSaleInvoicesTable extends Migration
             $table->decimal('cash_receive_account', 15, 2);
             $table->decimal('remaining_balance', 15, 2);
 
-            $table->decimal('pr_item', 15, 2)->nullable();
+            $table->unsignedBigInteger('pr_item')->nullable();
+            $table->string('pr_unit', 50)->nullable();
             $table->decimal('pr_qty', 15, 2)->nullable();
             $table->decimal('pr_remaining_balance', 15, 2)->nullable();
 

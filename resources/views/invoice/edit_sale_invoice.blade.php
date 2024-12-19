@@ -347,7 +347,7 @@
                                 <option value="{{ $row->product->product_id }}" selected>
                                     {{ $row->product->product_name }}</option>
                             </select>
-                            <input type="hidden" name="pr_item" value="{{ $row->item }}">
+                            <input type="hidden" name="pr_item[]" value="{{ $row->item }}">
                         </div>
                         <div class="div">
                             <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="unit">unit</label>
@@ -360,6 +360,7 @@
                                 <option value="coil" {{$row->unit == 'coil' ? 'selected' : ''}}>coil</option>
                                 <option value="pcs" {{$row->unit == 'pcs' ? 'selected' : ''}}>pcs</option>
                             </select>
+                            <input type="hidden" name="pr_unit[]" value="{{ $row->unit }}">
                         </div>
                         <div class="div">
                             <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="qty">Quantity</label>

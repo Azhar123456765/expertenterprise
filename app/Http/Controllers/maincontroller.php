@@ -1463,7 +1463,7 @@ class maincontroller extends Controller
 
         $add = new accounts();
         $add->account_name = $request['company_name'];
-        $add->account_category = 1;
+        $add->account_category = 2;
         $add->account_qty = 0;
         $add->account_debit = 0.00;
         $add->account_credit = 0.00;
@@ -1515,7 +1515,7 @@ class maincontroller extends Controller
         } else {
             $add = new accounts();
             $add->account_name = $request['company_name'];
-            $add->account_category = 1;
+            $add->account_category = 2;
             $add->account_qty = 0;
             $add->account_debit = 0.00;
             $add->account_credit = 0.00;
@@ -1537,14 +1537,6 @@ class maincontroller extends Controller
 
         session()->flash('message', 'buyer has been updated successfully');
         return redirect('/buyers');
-
-
-
-
-
-
-
-
 
 
         //$user = buyer::where([

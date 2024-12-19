@@ -73,7 +73,7 @@ function convertUnit(float $quantity, string $fromUnit, string $toUnit): float
 
     // Validate units
     if (!isset($unitRatios[$fromUnit]) || !isset($unitRatios[$toUnit])) {
-        throw new Exception("Invalid or unsupported unit conversion: $fromUnit to $toUnit");
+        return $quantity;
     }
 
     // Convert the quantity

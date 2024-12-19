@@ -9,7 +9,7 @@ class buyer extends Model
 {
     use HasFactory;
     protected $table = 'buyer';
-    protected $id = 'buyer_id';
+    protected $primaryKey = 'buyer_id';
 
     function zone()
     {
