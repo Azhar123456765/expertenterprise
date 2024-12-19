@@ -15,11 +15,6 @@
                             <input type="text" id="product_name" name="product_name" placeholde="Product Name"
                                 class="form-control" required>
                         </div>
-                        <div class="col">
-                            <label>Description</label>
-                            <input type="text" id="desc" name="desc" placeholde="Description"
-                                class="form-control">
-                        </div>
                     </div>
                 </div>
                 <br>
@@ -28,7 +23,6 @@
                         <div class="col">
                             <label for="company">Product Company</label>
                             <select name="company" id="company" class="form-control select-product_company">
-
                             </select>
                         </div>
 
@@ -45,32 +39,18 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <div class="col">
-                                <label for="type">Type</label>
-                                <select name="type" class="form-control select-type">
-                                    @foreach ($type as $row)
-                                        <option value="{{ $row->type }}">{{ $row->type }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col">
                             <label>Purchase Price</label>
-                            <input type="number" step="any" id="purchase_price" name="purchase_price"
+                            <input type="text" step="any" id="purchase_price" name="purchase_price"
                                 placeholde="Purchase Price" class="form-control">
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
                         <div class="col">
                             <label>Sale Price</label>
-                            <input type="number" step="any" id="sale_price" name="sale_price"
+                            <input type="text" step="any" id="sale_price" name="sale_price"
                                 placeholde="Sale Price" class="form-control">
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
@@ -88,6 +68,8 @@
                             <option value="inch">inch</option>
                             <option value="gaz">gaz</option>
                             <option value="meter">meter</option>
+                            <option value="box">box</option>
+                            <option value="coil">coil</option>
                             <option value="pcs">pcs</option>
                         </select>
                     </div>

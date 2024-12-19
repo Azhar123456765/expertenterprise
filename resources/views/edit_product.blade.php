@@ -15,11 +15,6 @@
                         <input type="text" value="{{ $product->product_name }}" id="product_name" name="product_name"
                             placeholde="Product Name" class="form-control" required>
                     </div>
-                    <div class="col">
-                        <label>Description</label>
-                        <input type="text" value="{{ $product->desc }}" id="desc" name="desc"
-                            placeholde="Description" class="form-control">
-                    </div>
                 </div>
             </div>
             <br>
@@ -47,37 +42,14 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col">
-                        <div class="col">
-                            <label for="type">Type</label>
-                            <select name="type" class="form-control select-type">
-                                @foreach ($type as $typeRow)
-                                    <option value="{{ $typeRow->product_type_id }}}"
-                                        {{ $typeRow->product_type_id == ($typeRow->product->product_type ?? null) ? 'selected' : '' }}>
-                                        {{ $typeRow->type }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col">
                         <label>Purchase Price</label>
-                        <input type="number" value="{{ $product->product_name }}" step="any" id="purchase_price"
+                        <input type="text" value="{{ $product->purchase_price }}" step="any" id="purchase_price"
                             name="purchase_price" placeholde="Purchase Price" class="form-control">
                     </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="row">
                     <div class="col">
                         <label>Sale Price</label>
-                        <input type="number" value="{{ $product->product_sale_price }}" step="any" id="sale_price"
+                        <input type="text" value="{{ $product->product_sale_price }}" step="any" id="sale_price"
                             name="sale_price" placeholde="Sale Price" class="form-control">
-                    </div>
-                    <div class="col">
-                        <label>Opening Purchase Price</label>
-                        <input type="number" value="{{ $product->opening_pur_price }}" step="any"
-                            id="opening_pur_price" name="opening_pur_price" placeholde="Opening Purchase Price"
-                            class="form-control">
                     </div>
                 </div>
             </div>
@@ -90,84 +62,16 @@
                             class="form-control">
                     </div>
                     <div class="col">
-                        <label>Average Purchase Price</label>
-                        <input type="number" value="{{ $product->avg_pur_price }}" step="any" id="avg_pur_price"
-                            name="avg_pur_price" placeholde="Average Purchase Price" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <label>Overhead Expense</label>
-                        <input type="number" value="{{ $product->overhead_exp }}" step="any" id="overhead_exp"
-                            name="overhead_exp" placeholde="Overhead Expense" class="form-control">
-                    </div>
-                    <div class="col">
-                        <label>Overhead Price Purchase</label>
-                        <input type="number" value="{{ $product->overhead_price_pur }}" step="any"
-                            id="overhead_price_pur" name="overhead_price_pur" placeholde="Overhead Price Purchase"
-                            class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <label>Overhead Price Average</label>
-                        <input type="number" value="{{ $product->overhead_price_avg }}" step="any"
-                            id="overhead_price_avg" name="overhead_price_avg" placeholde="Overhead Price Average"
-                            class="form-control">
-                    </div>
-                    <div class="col">
-                        <label>Purchase Price + Overhead</label>
-                        <input type="number" value="{{ $product->pur_price_plus_oh }}" step="any"
-                            id="pur_price_plus_oh" name="pur_price_plus_oh" placeholde="Purchase Price + Overhead"
-                            class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <label>Average Price + Overhead</label>
-                        <input type="number" value="{{ $product->avg_price_plus_oh }}" step="any"
-                            id="avg_price_plus_oh" name="avg_price_plus_oh" placeholde="Average Price + Overhead"
-                            class="form-control">
-                    </div>
-                    <div class="col">
-                        <label>Inactive Item</label>
-                        <input type="text" value="{{ $product->inactive_item }}" id="inactive_item"
-                            name="inactive_item" placeholde="" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <label>Barcode</label>
-                        <input type="text" value="{{ $product->barcode }}" id="barcode" name="barcode"
-                            placeholde="" class="form-control">
-                    </div>
-                    <div class="col">
                         <label>unit</label>
                         <select id="unit" name="unit" class="form-control">
                             <option value="foot" {{$product->unit == 'foot' ? 'selected' : ''}}>foot</option>
                             <option value="inch" {{$product->unit == 'inch' ? 'selected' : ''}}>inch</option>
                             <option value="gaz" {{$product->unit == 'gaz' ? 'selected' : ''}}>gaz</option>
                             <option value="meter" {{$product->unit == 'meter' ? 'selected' : ''}}>meter</option>
+                            <option value="box" {{$product->unit == 'box' ? 'selected' : ''}}>box</option>
+                            <option value="coil" {{$product->unit == 'coil' ? 'selected' : ''}}>coil</option>
                             <option value="pcs" {{$product->unit == 'pcs' ? 'selected' : ''}}>pcs</option>
                           </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <label>Re-order Level</label>
-
-                        <input style="width: 49%;" type="text" value="{{ $product->re_order_level }}"
-                            id="re_order_level" name="re_order_level" class="form-control">
                     </div>
                 </div>
             </div>

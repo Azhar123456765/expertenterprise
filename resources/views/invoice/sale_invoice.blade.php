@@ -256,6 +256,7 @@
         line-height: 25px !important;
         height: 30px !important;
     }
+
     .total .select2-container--bootstrap4 {
         width: 245px !important;
 
@@ -340,6 +341,8 @@
                             <option value="inch">inch</option>
                             <option value="gaz">gaz</option>
                             <option value="meter">meter</option>
+                            <option value="box">box</option>
+                            <option value="coil">coil</option>
                             <option value="pcs">pcs</option>
                         </select>
                     </div>
@@ -618,9 +621,13 @@ height: max-content !important;
                 </div>
                 <div class="div">
                         <select name="unit[]" id="unit` + counter + `" class="form-control">
-                            <option value="foot">foot</option>
+                               <option value="foot">foot</option>
                             <option value="inch">inch</option>
-                            <option value="footinch">foot+inch</option>
+                            <option value="gaz">gaz</option>
+                            <option value="meter">meter</option>
+                            <option value="box">box</option>
+                            <option value="coil">coil</option>
+                            <option value="pcs">pcs</option>
                         </select>
                     </div>
                                 <div class="div">
@@ -724,9 +731,13 @@ height: max-content !important;
                 </div>
                 <div class="div">
                         <select name="unit[]" id="unit` + counter + `" class="form-control">
-                            <option value="foot">foot</option>
+                               <option value="foot">foot</option>
                             <option value="inch">inch</option>
-                            <option value="footinch">foot+inch</option>
+                            <option value="gaz">gaz</option>
+                            <option value="meter">meter</option>
+                            <option value="box">box</option>
+                            <option value="coil">coil</option>
+                            <option value="pcs">pcs</option>
                         </select>
                     </div>
                                 <div class="div">
@@ -819,7 +830,7 @@ height: max-content !important;
             let price = parseFloat($(element).closest('.dup_invoice').find('.pr_price').val());
             let selectedUnit = $(element).val();
 
-            if (selectedUnit != 'pcs') {
+            if (selectedUnit != 'pcs' || selectedUnit != 'box' || selectedUnit != 'coil') {
 
                 if (isNaN(price)) {
                     return;
@@ -842,7 +853,7 @@ height: max-content !important;
 
                 $(element).closest('.dup_invoice').find('input[name="price[]"]').val(newPrice.toFixed(2));
             } else {
-                $(element).closest('.dup_invoice').find('input[name="price[]"]').val(0);
+                $(element).closest('.dup_invoice').find('input[name="price[]"]').val(price);
             }
         }
 

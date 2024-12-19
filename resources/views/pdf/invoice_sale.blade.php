@@ -19,26 +19,7 @@
          }
     </style> --}}
     <style>
-         @page {
-      size: 80mm 2100mm;
-      margin: 0;
-    }
-
-    /* Set the content size for the page */
-    body {
-      width: 80mm;
-      height: 2100mm;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    /* Example styling */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 10mm;
-      line-height: 1.5;
-    }
+       
     </style>
     <div class="invoice-header">
         <div class="ui left aligned grid">
@@ -119,15 +100,19 @@
                     </tbody>
                     <tfoot class="full-width">
                         <tr>
-                            <th colspan="3" class="text-right" style="background: transparent !important; border: none !important;"> Discount: </th>
+                            <th colspan="3" class="text-right"
+                                style="background: transparent !important; border: none !important;"> Discount: </th>
                             <th colspan="1" class="text-right"> {{ $single_data['discount'] }} </th>
                         </tr>
                         <tr>
-                            <th colspan="3" class="text-right" style="background: transparent !important; border: none !important;"> Cash Receive: </th>
+                            <th colspan="3" class="text-right"
+                                style="background: transparent !important; border: none !important;"> Cash Receive: </th>
                             <th colspan="1" class="text-right"> {{ $single_data['cash_receive'] }} </th>
                         </tr>
                         <tr>
-                            <th colspan="3" class="text-right" style="background: transparent !important; border: none !important;"> Remaining Balance: </th>
+                            <th colspan="3" class="text-right"
+                                style="background: transparent !important; border: none !important;"> Remaining Balance:
+                            </th>
                             <th colspan="1" class="text-right"> {{ $single_data['remaining_balance'] }} </th>
                         </tr>
                     </tfoot>
@@ -139,13 +124,13 @@
                             <th colspan="1" class="text-right"> {{ $single_data['amount_total'] }} </th>
                         </tr>
                     </tfoot>
-                   
+
                 </table>
 
             </div>
         </div>
         <h4 class="my-5 fw-bolder" style="width: 100%">
-           Total Amount Inwords: &nbsp;&nbsp;&nbsp;
+            Total Amount Inwords: &nbsp;&nbsp;&nbsp;
             {{ (new NumberToWords\NumberToWords())->getNumberTransformer('en')->toWords($single_data['amount_total']) }}
         </h4>
         <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
