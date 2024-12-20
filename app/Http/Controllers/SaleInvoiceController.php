@@ -12,16 +12,26 @@ use Illuminate\Http\Request;
 
 class SaleInvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function index()
+    public function sale_price(Request $request, $cus_id, $item_id, $selectedUnit)
     {
-        //
+        $pr_invoice = SaleInvoice::where('buyer', $cus_id)->where('item', $item_id)->first();
+        $sale_price = convertUnitPrice($pr_invoice->product->unit, $pr_invoice->product->sale_price, $selectedUnit);
+        return response()->json($sale_price);
     }
+
+    public function sale_do()
+    {
+        $invoices = SaleInvoice::where('status', 0)->grouped()->orderBy('unique_id', 'asc')->get();
+        return view('invoice.sale_do')->with('invoices', $invoices);
+    }
+    public function changeInvoiceStatus(Request $request, $id)
+    {
+        $invoices = SaleInvoice::where('unique_id', $id)->update([
+            'status' => 1
+        ]);
+        return redirect()->back()->with('message', 'Status has been changed successfully');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -319,7 +329,6 @@ class SaleInvoiceController extends Controller
             $invoice->pr_qty = is_numeric($request['qty'][$i]) ? $request['qty'][$i] : 0;
             $invoice->pr_remaining_balance = is_numeric($request['remaining_balance']) ? $request['remaining_balance'] : 0;
 
-            // Handle attachments
             if ($request->hasFile('attachment')) {
                 $attachmentPath = $request->file('attachment')->store('attachments');
             } else {

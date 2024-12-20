@@ -366,7 +366,7 @@
                             <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="qty">Quantity</label>
                             <input type="number" step="any" id="qty{{ $counter }}" name="qty[]"
                                 value="{{ $row->qty }}" />
-                            <input type="hidden" name="pr_qty" value="{{ $row->qty }}">
+                            <input type="hidden" name="pr_qty[]" value="{{ $row->qty }}">
                         </div>
                         <div class="div">
                             <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="price">price</label>

@@ -27,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         Validator::replacer('attribute', function ($message, $attribute) {
             return ucwords(str_replace('_', ' ', $attribute));
         });
+        require_once app_path('Helpers/custom_helpers.php');
     }
 }

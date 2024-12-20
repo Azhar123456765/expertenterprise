@@ -146,6 +146,10 @@ Route::middleware('userAuth')->group(function () {
                     Route::post('/add-invoice-sale', [SaleInvoiceController::class, 'store'])->name("store_invoice_sale");
                     Route::get('/edit-invoice-sale/{id?}', [SaleInvoiceController::class, 'edit'])->name("edit_invoice_sale");
                     Route::post('/update-invoice-sale/{id?}', [SaleInvoiceController::class, 'update'])->name("update_invoice_sale");
+
+                    Route::get('/get-sale-price', [SaleInvoiceController::class, 'sale_price'])->name("pr_sale_rate");
+                    Route::get('/sale-do', [SaleInvoiceController::class, 'sale_do'])->name("sale_do");
+                    Route::get('/change-sale-status/{id}', [SaleInvoiceController::class, 'changeInvoiceStatus'])->name("changeSaleInvoiceStatus");
                 });
 
             });

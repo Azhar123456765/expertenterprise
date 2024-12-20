@@ -295,7 +295,7 @@
                     <div class="row mb-3">
                         <label class="col-3 col-form-label" for="buyer">Customer</label>
                         <div class="col-8">
-                            <select name="buyer" class="select-buyer">
+                            <select name="buyer" id="buyer" class="select-buyer">
                             </select>
                         </div>
                     </div>
@@ -567,6 +567,12 @@ height: max-content !important;
 
 @push('s_script')
     <script>
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
         $('.select-fin-products').on('select2:select', function(e) {
             var selectedData = e.params.data;
             let selectedOption = $(this).find('option:selected');
@@ -581,6 +587,17 @@ height: max-content !important;
 
             $(this).closest('.dup_invoice').find('.pr_unit').val(unit).change()
             $(this).closest('.dup_invoice').find('.pr_price').val(sale_price).change()
+
+            // let cus_id = $('buyer')
+            // $.ajax({
+            //     url: '{{ Route('pr_sale_rate') }}',
+            //     method: 'POST',
+            //     data: {'cus_id':},
+            //     success: function(response) {
+
+            //     },
+            //     error: function(error) {}
+            // });
 
             // if (sale_price != 0 && sale_price != null){
             //     switch (unit) {

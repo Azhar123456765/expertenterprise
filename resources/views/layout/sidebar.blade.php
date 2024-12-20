@@ -152,6 +152,12 @@ $target = null;
                                     <p>Sale Invoice</p>
                                 </a>
                             </li>
+                            <li class="nav-item{{ request()->is('*sale-do*') ? ' active' : '' }}">
+                                <a href="{{ Route('sale_do') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sale DO</p>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
