@@ -76,7 +76,7 @@
 
     .dup_invoice {
         /* margin-top: 39px; */
-        margin: 6px;
+
         display: flex;
         width: 100%;
         justify-content: center;
@@ -310,8 +310,8 @@
                         <div class="row mb-3">
                             <label class="col-3 col-form-label" for="remark">Remarks</label>
                             <div class="col-8">
-                                <input class="form-control" style="width: 219px !important;" type="text" id="remark"
-                                    name="remark" />
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="remark" name="remark" />
                             </div>
                         </div>
                     </div>
@@ -573,6 +573,8 @@ height: max-content !important;
             },
         });
 
+
+
         $('.select-fin-products').on('select2:select', function(e) {
             var selectedData = e.params.data;
             let selectedOption = $(this).find('option:selected');
@@ -741,6 +743,7 @@ height: max-content !important;
                     price.val(selectedData.sale_price).change();
                 });
             });
+            $('.invoice').removeAttr('data-select2-id');
         }
 
 
@@ -853,6 +856,7 @@ height: max-content !important;
                 unitDropdown.val(selectedData.unit).change();
                 price.val(selectedData.sale_price).change();
             });
+            $('.invoice').removeAttr('data-select2-id');
         }
 
         function unitPrice(element) {
@@ -984,6 +988,7 @@ height: max-content !important;
                 window.open(url, '__blank')
             }
         });
+      
     </script>
     <div class="modal fade" id="iv-search">
         <div class="modal-dialog">

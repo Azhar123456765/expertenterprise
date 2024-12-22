@@ -17,6 +17,26 @@ class SaleInvoiceController extends Controller
         $pr_invoice = SaleInvoice::where('buyer', $cus_id)->where('item', $item_id)->first();
         $sale_price = convertUnitPrice($pr_invoice->product->unit, $pr_invoice->product->sale_price, $selectedUnit);
         return response()->json($sale_price);
+
+
+        $buyer = buyer::all();
+        foreach ($buyer as $row) { 
+            $acc = accounts::where('reference_id', $row->buyer_id)->first();
+            $check1 = p_voucher::where('cash_bank', $id)->orWhere('company', $id)->exists();
+            $check2 = ReceiptVoucher::where('cash_bank', $id)->orWhere('company', $id)->exists();
+            $check3 = ExpenseVoucher::where('cash_bank', $id)->orWhere('buyer', $id)->exists();
+            $check4 = JournalVoucher::where('from_account', $id)->orWhere('to_account', $id)->exists();
+
+            $check5 = chickenInvoice::where('buyer', $row->product_id)->where('seller', $row->product_id)->exists();
+            $check6 = chickInvoice::where('buyer', $row->product_id)->where('seller', $row->product_id)->exists();
+            $check7 = feedInvoice::where('buyer', $row->product_id)->where('seller', $row->product_id)->exists();
+
+            if ($check1 || $check2 || $check3 || $check4 || $check5 || $check6 || $check7) {
+
+            } else {
+                product::where('product_id', $row->product_id)->delete();
+            }
+        }
     }
 
     public function sale_do()

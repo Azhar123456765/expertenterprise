@@ -753,6 +753,7 @@ window.location.reload()
                     theme: 'bootstrap4',
                     width: '100%'
                 });
+                
             }
 
             $(document).ready(function() {
@@ -871,6 +872,8 @@ window.location.reload()
                 $(".p-img").attr('href', imgSrc)
                 // Initialize other select elements if necessary
             });
+
+            $('.invoice').removeAttr('data-select2-id');
         }
 
 
@@ -1019,6 +1022,8 @@ window.location.reload()
             $(this).closest('.dup_invoice').find('.pr_unit').val(unit).change()
             $(this).closest('.dup_invoice').find('.pr_price').val(sale_price).change()
         });
+
+        $('.invoice').removeAttr('data-select2-id');
 
         }
 

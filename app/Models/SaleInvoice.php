@@ -5,6 +5,7 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class SaleInvoice extends Model
 {
@@ -16,6 +17,13 @@ class SaleInvoice extends Model
                 ->groupBy('unique_id');
         });
     }
+
+    protected static function booted()
+{
+    static::addGlobalScope('status', function (Builder $builder) {
+        $builder->where('status', 1);
+    });
+}
 
     function product()
     {
