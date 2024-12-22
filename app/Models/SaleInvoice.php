@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 class SaleInvoice extends Model
 {
     use HasFactory;
-    public function scopeGrouped($query){
+    public function scopeGrouped($query)
+    {
         return $query->whereIn('sale_invoices.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
                 ->from('sale_invoices')
@@ -18,12 +19,12 @@ class SaleInvoice extends Model
         });
     }
 
-    protected static function booted()
-{
-    static::addGlobalScope('status', function (Builder $builder) {
-        $builder->where('status', 1);
-    });
-}
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope('status', function (Builder $builder) {
+    //         $builder->where('status', 1);
+    //     });
+    // }
 
     function product()
     {
@@ -33,7 +34,7 @@ class SaleInvoice extends Model
     {
         return $this->hasOne(buyer::class, 'buyer_id', 'buyer');
     }
-       function officer()
+    function officer()
     {
         return $this->hasOne(sales_officer::class, 'sales_officer_id', 'sales_officer');
     }
