@@ -263,6 +263,14 @@
         line-height: 25px !important;
         height: 30px !important;
     }
+
+    .last_dup_invoice {
+        margin-left: 27px;
+    }
+
+    .cut-btn {
+        margin-left: 30px;
+    }
 </style>
 <div class="container">
     <h4 class="text-center my-2">Sale Invoice</h4>
@@ -302,17 +310,10 @@
                 </div>
                 <div class="col-3">
                     <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="sales_officer">Sales Officer</label>
+                        <label class="col-3 col-form-label" for="remark">Remarks</label>
                         <div class="col-8">
-                            <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                            </select>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-3 col-form-label" for="remark">Remarks</label>
-                            <div class="col-8">
-                                <input class="form-control" style="width: 219px !important;" type="text"
-                                    id="remark" name="remark" />
-                            </div>
+                            <input class="form-control" style="width: 219px !important;" type="text" id="remark"
+                                name="remark" />
                         </div>
                     </div>
                 </div>
@@ -390,20 +391,20 @@
                         <label
                             style="
             position: fixed;
-            top: 104%;
+            top: 124%;
             left: 69%;
         ">Discount:</label>
                         <label
                             style="
             position: fixed;
-            top: 114%;
+            top: 104%;
             left: 69%;
         ">Receive
                             Account:</label>
                         <label
                             style="
             position: fixed;
-            top: 123%;
+            top: 114%;
             left: 69%;
         ">Cash
                             Receive:</label>
@@ -433,17 +434,11 @@
                 "=""="">
 
 
-                        <input type="number" step="any" name="discount" id="discount"
-                            style="
-                    position: fixed;
-                    top: 104%;
-                    left: 89.8%;
-                    /* width: 190px !important; */
-                "=""="">
+
                         <div
                             style="
                         position: fixed;
-                        top: 113%;
+                        top: 104%;
                         left: 89.8%;
                         width: 235px !important;
                     "=""="">
@@ -451,12 +446,22 @@
                                 class="select-assets-account"> </select>
                         </div>
                         <input type="number" step="any" name="cash_receive" id="cash_receive"
+                            oninput="
+                        let amount_total = +$('#amount_total').val();
+                        $('#discount').val(amount_total - this.value)"
                             style="
                 position: fixed;
-                top: 123%;
+                top: 115%;
                 left: 89.8%;
                 /* width: 190px !important; */
             "=""="">
+                        <input type="number" step="any" name="discount" id="discount"
+                            style="
+                    position: fixed;
+                    top: 124%;
+                    left: 89.8%;
+                    /* width: 190px !important; */
+                "=""="">
                         <input type="number" step="any" name="remaining_balance" id="remaining_balance"
                             style="
             position: fixed;
@@ -465,7 +470,6 @@
             /* width: 190px !important; */
         "=""="">
                     </div>
-
                 </div>
             </div>
 
@@ -523,7 +527,7 @@ height: max-content !important;
             data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Enter">
             submit
         </button>
-        <a href="{{ Route('invoice_sale') }}" class="btn px-3 p-1 btn-secondary btn-md submit" id="first_btn"
+        {{-- <a href="{{ Route('invoice_sale') }}" class="btn px-3 p-1 btn-secondary btn-md submit" id="first_btn"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + A">
             First
         </a>
@@ -543,7 +547,7 @@ height: max-content !important;
             class="edit edit-btn  btn px-3 p-1 btn-secondary btn-md disabled" id="edit" data-bs-toggle="tooltip"
             data-bs-placement="top" title="Shortcut: Shift + E">
             Edit
-        </a>
+        </a> --}}
         <a href="{{ Route('new_invoice_sale') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md disabled"
             id="add_more_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + M">
             Add More
@@ -552,12 +556,12 @@ height: max-content !important;
         <button type="button" class="btn px-3 p-1 btn-secondary btn-md disabled" id="sale_pdf">
             SALE PDF
         </button>
-
+        {{-- 
         <button class="btn px-3 p-1 btn-secondary btn-md submit" onclick="
         window.location.reload()
         ">
             Revert
-        </button>
+        </button> --}}
     </div>
 
 
@@ -567,6 +571,21 @@ height: max-content !important;
 
 @push('s_script')
     <script>
+        function cutShow() {
+            $('.dup_invoice').removeClass('last_dup_invoice');
+
+            $('.dup_invoice .cut-btn').remove();
+
+            $('.dup_invoice:last').append(`
+    <div class="div">
+        <button class="cut-btn bg-transparent border-0" onclick="cutRow(this)">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+`);
+
+            $('.dup_invoice:last').addClass('last_dup_invoice');
+        }
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -670,14 +689,12 @@ height: max-content !important;
                     <input  type="number" step="any" id="price` +
                     counter + `" name="price[]" />
                 </div>
-
-                
-
                 <div class="div">
                     <input  type="number" step="any" min="0.00"
                         style="text-align: right;width: 235px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>
+                
             </div>
 
 `;
@@ -691,6 +708,7 @@ height: max-content !important;
                 countera++
                 $(".invoice").append(clonedFields);
 
+                cutShow()
             }
 
             $(document).ready(function() {
@@ -744,6 +762,8 @@ height: max-content !important;
                 });
             });
             $('.invoice').removeAttr('data-select2-id');
+
+
         }
 
 
@@ -802,6 +822,7 @@ height: max-content !important;
                     counter++
                     countera++
                     $(".invoice").append(clonedFields);
+                    cutShow()
                 }
             }
             var one = one
@@ -920,59 +941,84 @@ height: max-content !important;
                 qty_total += +$('#qty' + i).val();
                 amount_total += +$('#amount' + i).val();
             }
+
+
             $('#qty_total').val(qty_total);
             $('#amount_total').val(amount_total);
             let balance = amount_total - (discount + cash_receive)
             $('#remaining_balance').val(balance);
         }
 
+        function cutRow(element) {
+            $(element).closest('.dup_invoice').remove()
+            counter--;
+            countera--;
+            cutShow()
+        }
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
 
-
+        var invoiceSubmitted = 0;
 
         $('#form').submit(function(event) {
-
             event.preventDefault();
-
-            // Create a FormData object
             var formData = new FormData(this);
 
-            // Send an AJAX request
-            $.ajax({
-                url: '{{ Route('store_invoice_sale') }}',
-                method: 'POST',
-                data: formData,
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
-                success: function(response) {
-                    // Handle the response
+            if (invoiceSubmitted == 0) {
+
+                $.ajax({
+                    url: '{{ Route('store_invoice_sale') }}',
+                    method: 'POST',
+                    data: formData,
+                    contentType: false, // Prevent jQuery from setting the content type
+                    processData: false, // Prevent jQuery from processing the data
+                    success: function(response) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            timer: 1900
+                        });
+
+                        // $("#submit").addClass("disabled");
+                        $("#submit").text("Correct");
+                        invoiceSubmitted = 1;
+
+                        $(".edit").css("display", "block");
+                        $("#btn").css("display", "none");
+                        $("#edit").removeClass("disabled");
+                        $("#add_more").removeClass("disabled");
+                        $("#sale_pdf").removeClass("disabled");
+                        $("#purchase_pdf").removeClass("disabled");
 
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: response,
-                        timer: 1900
-                    });
+                    },
+                    error: function(error) {}
+                });
+            } else if (invoiceSubmitted == 1) {
 
-                    // Show or hide elements as needed
-                    // $("#submit").addClass("disabled");
-                    $(".edit").css("display", "block");
-                    $("#btn").css("display", "none");
-                    $("#edit").removeClass("disabled");
-                    $("#add_more").removeClass("disabled");
-                    $("#sale_pdf").removeClass("disabled");
-                    $("#purchase_pdf").removeClass("disabled");
+                var unique_id = $("#unique_id").val();
+                $.ajax({
+                    url: '{{ Route('update_invoice_sale', [':unique_id']) }}'.replace(':unique_id',
+                        unique_id),
+                    method: 'POST',
+                    data: formData,
+                    contentType: false, // Prevent jQuery from setting the content type
+                    processData: false, // Prevent jQuery from processing the data
+                    success: function(response) {
 
-
-                },
-                error: function(error) {}
-            });
+                        Swal.fire({
+                            icon: 'success',
+                            title: response,
+                            timer: 1900
+                        });
+                    },
+                    error: function(error) {}
+                });
+            }
         });
 
 
@@ -988,7 +1034,6 @@ height: max-content !important;
                 window.open(url, '__blank')
             }
         });
-      
     </script>
     <div class="modal fade" id="iv-search">
         <div class="modal-dialog">

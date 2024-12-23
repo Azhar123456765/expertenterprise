@@ -749,6 +749,17 @@
 
 @stack('s_script')
 <script>
+    function avail_qty(item_id) {
+        $.ajax({
+            url: '{{ Route('get_avail_qty') }}',
+            method: 'POST',
+            data: {'item_id' : item_id},
+            success: function(response) {
+
+            },
+            error: function(error) {}
+        });
+    }
     $(document).ready(function() {
         const dateInput = $('input[name="date"]');
         if (dateInput.length) {

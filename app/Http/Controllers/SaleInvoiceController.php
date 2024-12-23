@@ -9,9 +9,50 @@ use App\Models\sales_officer;
 use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use Illuminate\Http\Request;
+use PurchaseInvoice;
 
 class SaleInvoiceController extends Controller
 {
+    function convertUnit(float $quantity, string $fromUnit, string $toUnit): float
+    {
+        // Define unit conversion ratios (relative to inch as the base unit)
+        $unitRatios = [
+            'inch' => 1, // Base unit
+            'foot' => 12, // 1 foot = 12 inches
+            'yard' => 36, // 1 yard = 36 inches
+            'meter' => 39.3701, // 1 meter = ~39.37 inches
+            'gaz' => 36, // Example, 1 gaz = 36 inches (adjust if needed)
+        ];
+
+        // Validate units
+        if (!isset($unitRatios[$fromUnit]) || !isset($unitRatios[$toUnit])) {
+            return $quantity;
+        }
+
+        // Convert the quantity
+        $quantityInBaseUnit = $quantity * $unitRatios[$fromUnit]; // Convert to base unit (inch)
+        $convertedQuantity = $quantityInBaseUnit / $unitRatios[$toUnit]; // Convert to target unit
+
+        return $convertedQuantity;
+    }
+
+    // public function avail_qty(Request $request, $item_id)
+    // {
+    //     // $pur_qty = PurchaseInvoice::where('item', $item_id)->sum('qty');
+    //     // $sale_qty = SaleInvoice::where('item', $item_id)->sum('qty');
+    //     // $product = products::where('product_id', $item_id)->first();
+    //     // $productUnit = $product->unit;
+    //     // $convertedQty = convertUnit($qty, $unit->unit, $productUnit);
+    //     $pqty = PurchaseInvoice::where('item', $item_id)->sum('pur_qty');
+
+    //     $qty = SaleInvoice::where('item', $item_id)->sum('qty');
+    //     $unit = SaleInvoice::where('item', $item_id)->first();
+    //     $productUnit = $unit->product->unit;
+    //     $sqty = convertUnit($qty, $unit->unit, $productUnit);
+
+    //     $avail_qty = $pqty - $sqty;
+    //     return response()->json($avail_qty);
+    // }
     public function sale_price(Request $request, $cus_id, $item_id, $selectedUnit)
     {
         $pr_invoice = SaleInvoice::where('buyer', $cus_id)->where('item', $item_id)->first();
@@ -20,7 +61,7 @@ class SaleInvoiceController extends Controller
 
 
         $buyer = buyer::all();
-        foreach ($buyer as $row) { 
+        foreach ($buyer as $row) {
             $acc = accounts::where('reference_id', $row->buyer_id)->first();
             $check1 = p_voucher::where('cash_bank', $id)->orWhere('company', $id)->exists();
             $check2 = ReceiptVoucher::where('cash_bank', $id)->orWhere('company', $id)->exists();
@@ -153,7 +194,7 @@ class SaleInvoiceController extends Controller
             $invoice->unit = $request['unit']["$i"];
             $invoice->date = $request['date'] ?? 000;
 
-            $invoice->buyer = $buyerId ?? 'NULL';
+            $invoice->buyer = $buyerId ?? 0;
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->remark = $request['remark'] ?? null;
 
@@ -328,16 +369,16 @@ class SaleInvoiceController extends Controller
             $invoice->unit = $request['unit'][$i];
             $invoice->date = $request['date'] ?? now(); // Use current date if not provided
 
-            $invoice->buyer = $buyerId ?? 'NULL';
+            $invoice->buyer = $buyerId ?? 0;
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->remark = $request['remark'] ?? null;
 
             // Sanitize numeric inputs
             $invoice->price = is_numeric($request['price'][$i]) ? $request['price'][$i] : 0;
             $invoice->qty = is_numeric($request['qty'][$i]) ? $request['qty'][$i] : 0;
-            $invoice->discount = is_numeric($request['discount'][$i]) ? $request['discount'][$i] : 0;
             $invoice->amount = is_numeric($request['amount'][$i]) ? $request['amount'][$i] : 0;
-
+            
+            $invoice->discount = is_numeric($request['discount']) ? $request['discount'] : 0;
             $invoice->qty_total = is_numeric($request['qty_total']) ? $request['qty_total'] : 0;
             $invoice->cash_receive = is_numeric($request['cash_receive']) ? $request['cash_receive'] : 0;
             $invoice->cash_receive_account = is_numeric($request['cash_receive_account']) ? $request['cash_receive_account'] : 0;
@@ -358,11 +399,13 @@ class SaleInvoiceController extends Controller
 
             $invoice->save();
 
-            $product = products::where('product_id', $request['pr_item']["$i"])->first();
-            $qtyInBaseUnit = convertUnit($request['pr_qty']["$i"], $request['pr_unit']["$i"], $product->unit);
-            products::where('product_id', $request['pr_item']["$i"])->update([
-                'opening_quantity' => DB::raw("opening_quantity + " . $qtyInBaseUnit)
-            ]);
+            if(isset($request['pr_item']["$i"])){
+                $product = products::where('product_id', $request['pr_item']["$i"])->first();
+                $qtyInBaseUnit = convertUnit($request['pr_qty']["$i"], $request['pr_unit']["$i"], $product->unit);
+                products::where('product_id', $request['pr_item']["$i"])->update([
+                    'opening_quantity' => DB::raw("opening_quantity + " . $qtyInBaseUnit)
+                ]);
+            }
 
             $product = products::where('product_id', $request['item']["$i"])->first();
             $qtyInBaseUnit = convertUnit($request['qty']["$i"], $request['unit']["$i"], $product->unit);

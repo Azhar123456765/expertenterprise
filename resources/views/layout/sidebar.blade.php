@@ -179,11 +179,11 @@ $target = null;
                                     <p>Product Company</p>
                                 </a>
                             </li>
-                            <li class="nav-item{{ request()->is('*product_category*') ? ' active' : '' }}">
+                            {{-- <li class="nav-item{{ request()->is('*product_category*') ? ' active' : '' }}">
                                 <a href="/product_category" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product Category</p>
-                                </a>
+                                </a> --}}
                             </li>
                             {{-- <li class="nav-item{{ request()->is('product_sub_category*') ? ' active' : '' }}">
                                 <a href="/product_sub_category"

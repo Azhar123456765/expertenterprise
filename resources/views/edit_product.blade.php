@@ -27,14 +27,14 @@
                                 {{ $product->companies->company_name ?? null }}</option>
                         </select>
                     </div>
-
+{{-- 
                     <div class="col">
                         <label for="category">Product category</label>
                         <select name="category" id="category" class="form-control select-product_category">
                             <option value="{{ $product->categories->product_category_id ?? null }}" selected>
                             {{ $product->categories->category_name ?? null }}</option>
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="col">
                         <label for="type">Type</label>
                         <select name="type" class="form-control select-type">

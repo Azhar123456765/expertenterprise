@@ -25,13 +25,13 @@
                             <select name="company" id="company" class="form-control select-product_company">
                             </select>
                         </div>
-
+{{-- 
                         <div class="col">
                             <label for="category">Product category</label>
                             <select name="category" id="category" class="form-control select-product_category">
 
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col">
                             <label for="type">Type</label>
                             <select name="type" class="form-control select-type">
