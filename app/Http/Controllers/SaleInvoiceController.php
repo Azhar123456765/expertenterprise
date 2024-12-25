@@ -171,7 +171,7 @@ class SaleInvoiceController extends Controller
         if ($request['w_cus_name'] || $request['w_cus_num']) {
 
             $request->validate([
-                'w_cus_name' => 'required|unique:buyer,company_name',
+                'w_cus_name' => 'unique:buyer,company_name',
             ]);
 
             $buyer = new buyer();
@@ -194,7 +194,7 @@ class SaleInvoiceController extends Controller
             $invoice->unit = $request['unit']["$i"];
             $invoice->date = $request['date'] ?? 000;
 
-            $invoice->buyer = $buyerId ?? 0;
+            $invoice->buyer = $buyerId ?? null;
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->remark = $request['remark'] ?? null;
 
