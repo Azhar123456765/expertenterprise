@@ -369,7 +369,7 @@ class SaleInvoiceController extends Controller
             $invoice->unit = $request['unit'][$i];
             $invoice->date = $request['date'] ?? now(); // Use current date if not provided
 
-            $invoice->buyer = $buyerId ?? 0;
+            $invoice->buyer = $buyerId ?? null;
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->remark = $request['remark'] ?? null;
 
