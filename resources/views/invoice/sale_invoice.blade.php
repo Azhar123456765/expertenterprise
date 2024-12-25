@@ -276,6 +276,7 @@
     <h4 class="text-center my-2">{{ $type == 0 ? 'Cash Invoice' : 'Credit Invoice' }}</h4>
     <div class="finance-layout" id="invoiceForm">
         <form id="form" enctype="multipart/form-data">
+            <input type="hidden" name="type" value="{{$type}}">
             @if ($type == 0)
                 <div class="row justify-content-around mt-0">
                     <div class="col-3">

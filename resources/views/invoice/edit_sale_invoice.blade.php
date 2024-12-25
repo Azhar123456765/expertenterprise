@@ -269,6 +269,7 @@
     <div class="finance-layout" id="invoiceForm" style="overflow-x: visible;
 ">
         <form id="form" enctype="multipart/form-data">
+            <input type="hidden" name="type" value="{{ $type }}">
             <div class="row justify-content-around mt-0">
                 <div class="col-3">
                     <div class="row mb-3">
@@ -352,13 +353,13 @@
                         <div class="div">
                             <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="unit">unit</label>
                             <select name="unit[]" id="unit" class="form-control" onchange="unitPrice(this)">
-                                <option value="foot" {{$row->unit == 'foot' ? 'selected' : ''}}>foot</option>
-                                <option value="inch" {{$row->unit == 'inch' ? 'selected' : ''}}>inch</option>
-                                <option value="gaz" {{$row->unit == 'gaz' ? 'selected' : ''}}>gaz</option>
-                                <option value="meter" {{$row->unit == 'meter' ? 'selected' : ''}}>meter</option>
-                                <option value="box" {{$row->unit == 'box' ? 'selected' : ''}}>box</option>
-                                <option value="coil" {{$row->unit == 'coil' ? 'selected' : ''}}>coil</option>
-                                <option value="pcs" {{$row->unit == 'pcs' ? 'selected' : ''}}>pcs</option>
+                                <option value="foot" {{ $row->unit == 'foot' ? 'selected' : '' }}>foot</option>
+                                <option value="inch" {{ $row->unit == 'inch' ? 'selected' : '' }}>inch</option>
+                                <option value="gaz" {{ $row->unit == 'gaz' ? 'selected' : '' }}>gaz</option>
+                                <option value="meter" {{ $row->unit == 'meter' ? 'selected' : '' }}>meter</option>
+                                <option value="box" {{ $row->unit == 'box' ? 'selected' : '' }}>box</option>
+                                <option value="coil" {{ $row->unit == 'coil' ? 'selected' : '' }}>coil</option>
+                                <option value="pcs" {{ $row->unit == 'pcs' ? 'selected' : '' }}>pcs</option>
                             </select>
                             <input type="hidden" name="pr_unit[]" value="{{ $row->unit }}">
                         </div>
@@ -394,8 +395,9 @@
                         </select>
                     </div>
                     <div class="div">
-                        <select name="unit[]" id="unit{{ $counter }}" class="form-control" onchange="unitPrice(this)">
-                              <option value="foot">foot</option>
+                        <select name="unit[]" id="unit{{ $counter }}" class="form-control"
+                            onchange="unitPrice(this)">
+                            <option value="foot">foot</option>
                             <option value="inch">inch</option>
                             <option value="gaz">gaz</option>
                             <option value="meter">meter</option>
@@ -597,8 +599,9 @@ document.getElementById('imageAnchor').href = '';">
             data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + L">
             Last
         </a>
-        <a href="{{ $type == 0 ? Route('new_invoice_sale', 0) : Route('new_invoice_sale') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md"
-            id="add_more_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + M">
+        <a href="{{ $type == 0 ? Route('new_invoice_sale', 0) : Route('new_invoice_sale') }}"
+            class="edit add-more  btn px-3 p-1 btn-secondary btn-md" id="add_more_btn" data-bs-toggle="tooltip"
+            data-bs-placement="top" title="Shortcut: Shift + M">
             Add More
         </a>
 
@@ -753,7 +756,7 @@ window.location.reload()
                     theme: 'bootstrap4',
                     width: '100%'
                 });
-                
+
             }
 
             $(document).ready(function() {
@@ -822,20 +825,20 @@ window.location.reload()
                     placeholder: '',
                 });
                 $('.select-fin-products').on('select2:select', function(e) {
-            var selectedData = e.params.data;
-            let selectedOption = $(this).find('option:selected');
+                    var selectedData = e.params.data;
+                    let selectedOption = $(this).find('option:selected');
 
-            let unit = selectedData.unit;
-            let sale_price = selectedData.sale_price;
+                    let unit = selectedData.unit;
+                    let sale_price = selectedData.sale_price;
 
-            let unitDropdown = $(this).closest('.dup_invoice').find('select[name="unit[]"]');
-            let price = $(this).closest('.dup_invoice').find('input[name="price[]"]');
-            unitDropdown.val(unit).change();
-            price.val(sale_price).change();
+                    let unitDropdown = $(this).closest('.dup_invoice').find('select[name="unit[]"]');
+                    let price = $(this).closest('.dup_invoice').find('input[name="price[]"]');
+                    unitDropdown.val(unit).change();
+                    price.val(sale_price).change();
 
-            $(this).closest('.dup_invoice').find('.pr_unit').val(unit).change()
-            $(this).closest('.dup_invoice').find('.pr_price').val(sale_price).change()
-        });
+                    $(this).closest('.dup_invoice').find('.pr_unit').val(unit).change()
+                    $(this).closest('.dup_invoice').find('.pr_price').val(sale_price).change()
+                });
                 $(".select2-container--open .select2-search__field").focus();
 
                 var selectedOption = $("#item").find('option:selected');
@@ -1008,22 +1011,22 @@ window.location.reload()
                 placeholder: '',
             });
             $('.select-fin-products').on('select2:select', function(e) {
-            var selectedData = e.params.data;
-            let selectedOption = $(this).find('option:selected');
+                var selectedData = e.params.data;
+                let selectedOption = $(this).find('option:selected');
 
-            let unit = selectedData.unit;
-            let sale_price = selectedData.sale_price;
+                let unit = selectedData.unit;
+                let sale_price = selectedData.sale_price;
 
-            let unitDropdown = $(this).closest('.dup_invoice').find('select[name="unit[]"]');
-            let price = $(this).closest('.dup_invoice').find('input[name="price[]"]');
-            unitDropdown.val(unit).change();
-            price.val(sale_price).change();
+                let unitDropdown = $(this).closest('.dup_invoice').find('select[name="unit[]"]');
+                let price = $(this).closest('.dup_invoice').find('input[name="price[]"]');
+                unitDropdown.val(unit).change();
+                price.val(sale_price).change();
 
-            $(this).closest('.dup_invoice').find('.pr_unit').val(unit).change()
-            $(this).closest('.dup_invoice').find('.pr_price').val(sale_price).change()
-        });
+                $(this).closest('.dup_invoice').find('.pr_unit').val(unit).change()
+                $(this).closest('.dup_invoice').find('.pr_price').val(sale_price).change()
+            });
 
-        $('.invoice').removeAttr('data-select2-id');
+            $('.invoice').removeAttr('data-select2-id');
 
         }
 

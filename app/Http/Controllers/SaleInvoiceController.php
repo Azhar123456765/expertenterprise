@@ -166,16 +166,22 @@ class SaleInvoiceController extends Controller
         // $filteredArray = array_filter($array, function ($value) {
         //     return $value > 0;
         // });
-        $buyerId = $request['buyer'];
+        $buyerId = null;
 
-        if ($request['w_cus_name'] || $request['w_cus_num']) {
-
+        if ($request['w_cus_name']) {
             $request->validate([
                 'w_cus_name' => 'unique:buyer,company_name',
             ]);
 
             $buyer = new buyer();
-            $buyer->company_name = isset($request['w_cus_name']) ? $request['w_cus_name'] : 'Walking Customer (' . rand() . ')';
+            $buyer->company_name = $request['w_cus_name'];
+            $buyer->company_phone_number = $request['w_cus_num'] ?? null;
+            $buyer->buyer_type = 'Walking Customer';
+            $buyer->save();
+            $buyerId = $buyer->buyer_id;
+        } else {
+            $buyer = new buyer();
+            $buyer->company_name = 'Walking Customer (' . uniqid() . ')';
             $buyer->company_phone_number = $request['w_cus_num'] ?? null;
             $buyer->buyer_type = 'Walking Customer';
             $buyer->save();
@@ -194,7 +200,7 @@ class SaleInvoiceController extends Controller
             $invoice->unit = $request['unit']["$i"];
             $invoice->date = $request['date'] ?? 000;
 
-            $invoice->buyer = $buyerId ?? null;
+            $invoice->buyer = $buyerId ?? 0;
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->remark = $request['remark'] ?? null;
 
@@ -223,6 +229,9 @@ class SaleInvoiceController extends Controller
             }
 
             $invoice->attachment = $attachmentPath;
+
+            $invoice->type = $request['type'];
+
 
             $invoice->save();
 
@@ -341,21 +350,28 @@ class SaleInvoiceController extends Controller
         //     return $value > 0;
         // });
 
-        $buyerId = $request['buyer'];
+        $buyerId = null;
 
-        if ($request['w_cus_name'] || $request['w_cus_num']) {
-
+        if ($request['w_cus_name']) {
             $request->validate([
-                'w_cus_name' => 'required',
+                'w_cus_name' => 'unique:buyer,company_name',
             ]);
 
             $buyer = new buyer();
-            $buyer->company_name = $request['w_cus_name'] ?? 'NULL';
+            $buyer->company_name = $request['w_cus_name'];
+            $buyer->company_phone_number = $request['w_cus_num'] ?? null;
+            $buyer->buyer_type = 'Walking Customer';
+            $buyer->save();
+            $buyerId = $buyer->buyer_id;
+        } else {
+            $buyer = new buyer();
+            $buyer->company_name = 'Walking Customer (' . uniqid() . ')';
             $buyer->company_phone_number = $request['w_cus_num'] ?? null;
             $buyer->buyer_type = 'Walking Customer';
             $buyer->save();
             $buyerId = $buyer->buyer_id;
         }
+
 
         $arrayLength = count(array_filter($request['item']));
 
@@ -396,6 +412,8 @@ class SaleInvoiceController extends Controller
                 $attachmentPath = $request->input('old_attachment', null);
             }
             $invoice->attachment = $attachmentPath;
+
+            $invoice->type = $request['type'];
 
             $invoice->save();
 
