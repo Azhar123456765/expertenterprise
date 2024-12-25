@@ -273,68 +273,115 @@
     }
 </style>
 <div class="container">
-    <h4 class="text-center my-2">Sale Invoice</h4>
+    <h4 class="text-center my-2">{{ $type == 0 ? 'Cash Invoice' : 'Credit Invoice' }}</h4>
     <div class="finance-layout" id="invoiceForm">
         <form id="form" enctype="multipart/form-data">
-            <div class="row justify-content-around mt-0">
-                <div class="col-3">
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
-                        <div class="col-8">
-                            <input class="form-control" style="border: none !important; width: 219px !important;"
-                                type="text" id="" name="" value="<?php $year = date('Y');
-                                $lastTwoWords = substr($year, -2);
-                                echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
-                            <input class="form-control" type="hidden" id="unique_id" name="unique_id"
-                                value="{{ $rand = $count + 1 }}" />
+            @if ($type == 0)
+                <div class="row justify-content-around mt-0">
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
+                            <div class="col-8">
+                                <input class="form-control" style="border: none !important; width: 219px !important;"
+                                    type="text" id="" name="" value="<?php $year = date('Y');
+                                    $lastTwoWords = substr($year, -2);
+                                    echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
+                                <input class="form-control" type="hidden" id="unique_id" name="unique_id"
+                                    value="{{ $rand = $count + 1 }}" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="date">Date</label>
+                            <div class="col-8">
+                                <input class="form-control"
+                                    style="border: none !important; width: 219px !important; text-align:center;        "
+                                    type="date" id="date" name="date" value="<?php
+                                    $currentDate = date('Y-m-d');
+                                    echo $currentDate;
+                                    ?>" />
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="date">Date</label>
-                        <div class="col-8">
-                            <input class="form-control"
-                                style="border: none !important; width: 219px !important; text-align:center;        "
-                                type="date" id="date" name="date" value="<?php
-                                $currentDate = date('Y-m-d');
-                                echo $currentDate;
-                                ?>" />
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-4 col-form-label" for="w_cus_name">Customer Name</label>
+                            <div class="col-7 d-flex align-items-center">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="w_cus_name" name="w_cus_name" />
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="buyer">Customer</label>
-                        <div class="col-8">
-                            <select name="buyer" id="buyer" class="select-buyer">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="remark">Remarks</label>
-                        <div class="col-8">
-                            <input class="form-control" style="width: 219px !important;" type="text" id="remark"
-                                name="remark" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="row mb-3">
-                        <label class="col-4 col-form-label" for="w_cus_name">W.Customer Name</label>
-                        <div class="col-7 d-flex align-items-center">
-                            <input class="form-control" style="width: 219px !important;" type="text" id="w_cus_name"
-                                name="w_cus_name" />
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-4 col-form-label" for="w_cus_num">W.Customer Number</label>
-                        <div class="col-7 d-flex align-items-center">
-                            <input class="form-control" style="width: 219px !important;" type="text" id="w_cus_num"
-                                name="w_cus_num" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <div class="col-3">
 
+                        <div class="row mb-3">
+                            <label class="col-4 col-form-label" for="w_cus_num">Customer Number</label>
+                            <div class="col-7 d-flex align-items-center">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="w_cus_num" name="w_cus_num" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @elseif($type == 1)
+                <div class="row justify-content-around mt-0">
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
+                            <div class="col-8">
+                                <input class="form-control" style="border: none !important; width: 219px !important;"
+                                    type="text" id="" name="" value="<?php $year = date('Y');
+                                    $lastTwoWords = substr($year, -2);
+                                    echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
+                                <input class="form-control" type="hidden" id="unique_id" name="unique_id"
+                                    value="{{ $rand = $count + 1 }}" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="date">Date</label>
+                            <div class="col-8">
+                                <input class="form-control"
+                                    style="border: none !important; width: 219px !important; text-align:center;        "
+                                    type="date" id="date" name="date" value="<?php
+                                    $currentDate = date('Y-m-d');
+                                    echo $currentDate;
+                                    ?>" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="buyer">Customer</label>
+                            <div class="col-8">
+                                <select name="buyer" id="buyer" class="select-buyer">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="remark">Remarks</label>
+                            <div class="col-8">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="remark" name="remark" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-4 col-form-label" for="w_cus_name">Customer Name</label>
+                            <div class="col-7 d-flex align-items-center">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="w_cus_name" name="w_cus_name" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-4 col-form-label" for="w_cus_num">Customer Number</label>
+                            <div class="col-7 d-flex align-items-center">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="w_cus_num" name="w_cus_num" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <br />
 
             <div class="invoice">
@@ -394,20 +441,8 @@
             top: 124%;
             left: 69%;
         ">Discount:</label>
-                        <label
-                            style="
-            position: fixed;
-            top: 104%;
-            left: 69%;
-        ">Receive
-                            Account:</label>
-                        <label
-                            style="
-            position: fixed;
-            top: 114%;
-            left: 69%;
-        ">Cash
-                            Receive:</label>
+
+
                         <label
                             style="
             position: fixed;
@@ -415,7 +450,13 @@
             left: 69%;
         ">Remaining
                             Balance:</label>
-
+                        <label
+                            style="
+            position: fixed;
+            top: 114%;
+            left: 69%;
+        ">Cash
+                            Receive:</label>
 
                         <input type="number" step="any" name="qty_total" id="qty_total"
                             style="
@@ -435,16 +476,24 @@
 
 
 
-                        <div
-                            style="
+                        @if ($type != 0)
+                            <label style="
+position: fixed;
+top: 104%;
+left: 69%;
+">Receive
+                                Account:</label>
+                            <div
+                                style="
                         position: fixed;
                         top: 104%;
                         left: 89.8%;
                         width: 235px !important;
                     "=""="">
-                            <select name="cash_receive_account" id="cash_receive_account"
-                                class="select-assets-account"> </select>
-                        </div>
+                                <select name="cash_receive_account" id="cash_receive_account"
+                                    class="select-assets-account"> </select>
+                            </div>
+                        @endif
                         <input type="number" step="any" name="cash_receive" id="cash_receive"
                             oninput="
                         let amount_total = +$('#amount_total').val();
@@ -542,12 +591,12 @@ height: max-content !important;
         <a href="{{ Route('last_invoice_sale') }}" class="btn px-3 p-1 btn-secondary btn-md  submit" id="last_btn"
             data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + L">
             Last
-        </a>
+        </a>--}}
         <a href="{{ Route('edit_invoice_sale', $rand) }}"
             class="edit edit-btn  btn px-3 p-1 btn-secondary btn-md disabled" id="edit" data-bs-toggle="tooltip"
             data-bs-placement="top" title="Shortcut: Shift + E">
             Edit
-        </a> --}}
+        </a> 
         <a href="{{ Route('new_invoice_sale') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md disabled"
             id="add_more_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + M">
             Add More

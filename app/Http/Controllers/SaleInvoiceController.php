@@ -99,7 +99,7 @@ class SaleInvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type = 1)
     {
         $count = SaleInvoice::whereIn('sale_invoices.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
@@ -107,19 +107,19 @@ class SaleInvoiceController extends Controller
                 ->groupBy('unique_id');
         })->count();
 
-        $data = compact('count');
+        $data = compact('count', 'type');
         return view('invoice.sale_invoice')->with($data);
     }
-    public function create_first(Request $request)
+    public function create_first(Request $request, $type = 1)
     {
         $invoice = SaleInvoice::where('unique_id', 1)->get();
         $single_invoice = SaleInvoice::where('unique_id', 1)->first();
         if (count($invoice) > 0) {
-            return view('invoice.edit_sale_invoice', compact('invoice', 'single_invoice'));
+            return view('invoice.edit_sale_invoice', compact('invoice', 'single_invoice', 'type'));
         } else {
             $count = SaleInvoice::grouped()->count();
             if ($count == 0) {
-                $data = compact('count');
+                $data = compact('count', 'type');
                 return view('invoice.sale_invoice')->with($data);
             } else {
                 session()->flash('something_error', 'Invoice Not Found');
@@ -128,7 +128,7 @@ class SaleInvoiceController extends Controller
         }
     }
 
-    public function create_last(Request $request)
+    public function create_last(Request $request, $type = 1)
     {
         $count = SaleInvoice::whereIn('sale_invoices.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
@@ -139,7 +139,7 @@ class SaleInvoiceController extends Controller
         $invoice = SaleInvoice::where('unique_id', $count)->get();
         $single_invoice = SaleInvoice::where('unique_id', $count)->first();
         if (count($invoice) > 0) {
-            return view('invoice.edit_sale_invoice', compact('invoice', 'single_invoice'));
+            return view('invoice.edit_sale_invoice', compact('invoice', 'single_invoice', 'type'));
         } else {
             session()->flash('something_error', 'Invoice Not Found');
             return redirect()->back();
@@ -175,7 +175,7 @@ class SaleInvoiceController extends Controller
             ]);
 
             $buyer = new buyer();
-            $buyer->company_name = $request['w_cus_name'] ?? 'NULL';
+            $buyer->company_name = isset($request['w_cus_name']) ? $request['w_cus_name'] : 'Walking Customer (' . rand() . ')';
             $buyer->company_phone_number = $request['w_cus_num'] ?? null;
             $buyer->buyer_type = 'Walking Customer';
             $buyer->save();
@@ -280,12 +280,12 @@ class SaleInvoiceController extends Controller
      * @param  \App\Models\SaleInvoice  $SaleInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id, $type = 1)
     {
         $invoice = SaleInvoice::where('unique_id', $id)->get();
         $single_invoice = SaleInvoice::where('unique_id', $id)->first();
         if (count($invoice) > 0) {
-            return view('invoice.edit_sale_invoice', compact('invoice', 'single_invoice'));
+            return view('invoice.edit_sale_invoice', compact('invoice', 'single_invoice', 'type'));
         } else {
             session()->flash('something_error', 'Invoice Not Found');
             return redirect()->back();
@@ -346,7 +346,7 @@ class SaleInvoiceController extends Controller
         if ($request['w_cus_name'] || $request['w_cus_num']) {
 
             $request->validate([
-                'w_cus_name' => 'required|unique:buyer,company_name',
+                'w_cus_name' => 'required',
             ]);
 
             $buyer = new buyer();
@@ -377,7 +377,7 @@ class SaleInvoiceController extends Controller
             $invoice->price = is_numeric($request['price'][$i]) ? $request['price'][$i] : 0;
             $invoice->qty = is_numeric($request['qty'][$i]) ? $request['qty'][$i] : 0;
             $invoice->amount = is_numeric($request['amount'][$i]) ? $request['amount'][$i] : 0;
-            
+
             $invoice->discount = is_numeric($request['discount']) ? $request['discount'] : 0;
             $invoice->qty_total = is_numeric($request['qty_total']) ? $request['qty_total'] : 0;
             $invoice->cash_receive = is_numeric($request['cash_receive']) ? $request['cash_receive'] : 0;
@@ -399,7 +399,7 @@ class SaleInvoiceController extends Controller
 
             $invoice->save();
 
-            if(isset($request['pr_item']["$i"])){
+            if (isset($request['pr_item']["$i"])) {
                 $product = products::where('product_id', $request['pr_item']["$i"])->first();
                 $qtyInBaseUnit = convertUnit($request['pr_qty']["$i"], $request['pr_unit']["$i"], $product->unit);
                 products::where('product_id', $request['pr_item']["$i"])->update([

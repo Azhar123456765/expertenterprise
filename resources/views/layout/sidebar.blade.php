@@ -149,7 +149,13 @@ $target = null;
                             <li class="nav-item{{ request()->is('invoice-sale*') ? ' active' : '' }}">
                                 <a href="{{ Route('invoice_sale') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Sale Invoice</p>
+                                    <p>Credit Invoice</p>
+                                </a>
+                            </li>
+                            <li class="nav-item{{ request()->is('invoice-sale*') ? ' active' : '' }}">
+                                <a href="{{ Route('invoice_sale', 0) }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Cash Invoice</p>
                                 </a>
                             </li>
                             <li class="nav-item{{ request()->is('*sale-do*') ? ' active' : '' }}">

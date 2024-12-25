@@ -140,11 +140,11 @@ Route::middleware('userAuth')->group(function () {
                 });
                 Route::prefix('invoices')->group(function () {
                     // INVOICES
-                    Route::get('/add-invoice-sale', [SaleInvoiceController::class, 'create_first'])->name("invoice_sale");
-                    Route::get('/last-invoice-sale', [SaleInvoiceController::class, 'create_last'])->name("last_invoice_sale");
-                    Route::get('/invoice-sale', [SaleInvoiceController::class, 'create'])->name("new_invoice_sale");
+                    Route::get('/add-invoice-sale/{type?}', [SaleInvoiceController::class, 'create_first'])->name("invoice_sale");
+                    Route::get('/last-invoice-sale/{type?}', [SaleInvoiceController::class, 'create_last'])->name("last_invoice_sale");
+                    Route::get('/invoice-sale/{type?}', [SaleInvoiceController::class, 'create'])->name("new_invoice_sale");
                     Route::post('/add-invoice-sale', [SaleInvoiceController::class, 'store'])->name("store_invoice_sale");
-                    Route::get('/edit-invoice-sale/{id?}', [SaleInvoiceController::class, 'edit'])->name("edit_invoice_sale");
+                    Route::get('/edit-invoice-sale/{id?}/{type?}', [SaleInvoiceController::class, 'edit'])->name("edit_invoice_sale");
                     Route::post('/update-invoice-sale/{id?}', [SaleInvoiceController::class, 'update'])->name("update_invoice_sale");
 
                     Route::get('/get-sale-price', [SaleInvoiceController::class, 'sale_price'])->name("pr_sale_rate");
