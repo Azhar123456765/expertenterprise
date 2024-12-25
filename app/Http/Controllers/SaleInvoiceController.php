@@ -350,28 +350,18 @@ class SaleInvoiceController extends Controller
         //     return $value > 0;
         // });
 
-        $buyerId = null;
+        $buyerId = $request['buyer'];
 
         if ($request['w_cus_name']) {
             $request->validate([
-                'w_cus_name' => 'unique:buyer,company_name',
+                'w_cus_name' => 'required|unique:buyer,company_name,' . $buyerId . ',buyer_id',
             ]);
 
-            $buyer = new buyer();
+            $buyer = buyer::find($buyerId);
             $buyer->company_name = $request['w_cus_name'];
             $buyer->company_phone_number = $request['w_cus_num'] ?? null;
-            $buyer->buyer_type = 'Walking Customer';
             $buyer->save();
-            $buyerId = $buyer->buyer_id;
-        } else {
-            $buyer = new buyer();
-            $buyer->company_name = 'Walking Customer (' . uniqid() . ')';
-            $buyer->company_phone_number = $request['w_cus_num'] ?? null;
-            $buyer->buyer_type = 'Walking Customer';
-            $buyer->save();
-            $buyerId = $buyer->buyer_id;
         }
-
 
         $arrayLength = count(array_filter($request['item']));
 

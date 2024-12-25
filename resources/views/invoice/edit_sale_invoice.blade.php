@@ -265,46 +265,96 @@
     }
 </style>
 <div class="container">
-    <h5 class="text-center my-2">Sale Invoice (Edit)</h5>
+    <h5 class="text-center my-2">{{ $type == 0 ? 'Cash Invoice' : 'Credit Invoice' }} (Edit)</h5>
     <div class="finance-layout" id="invoiceForm" style="overflow-x: visible;
 ">
         <form id="form" enctype="multipart/form-data">
             <input type="hidden" name="type" value="{{ $type }}">
-            <div class="row justify-content-around mt-0">
-                <div class="col-3">
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
-                        <div class="col-8">
-                            <input clang="form-control" style="border: none !important; width: 219px !important;"
-                                type="text" id="" name="" value="<?php $year = date('Y');
-                                $lastTwoWords = substr($year, -2);
-                                echo $rand = 'SI' . '-' . $year . '-' . $single_invoice->unique_id; ?>" />
-                            <input clang="form-control" type="hidden" id="unique_id" name="unique_id"
-                                value="{{ $rand = $single_invoice->unique_id }}" />
+            <input type="hidden" name="buyer" value="{{ $single_invoice->buyer }}">
+            @if ($type == 0)
+                <div class="row justify-content-around mt-0">
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
+                            <div class="col-8">
+                                <input clang="form-control" style="border: none !important; width: 219px !important;"
+                                    type="text" id="" name="" value="<?php $year = date('Y');
+                                    $lastTwoWords = substr($year, -2);
+                                    echo $rand = 'SI' . '-' . $year . '-' . $single_invoice->unique_id; ?>" />
+                                <input clang="form-control" type="hidden" id="unique_id" name="unique_id"
+                                    value="{{ $rand = $single_invoice->unique_id }}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="date">Date</label>
-                        <div class="col-8">
-                            <input clang="form-control"
-                                style="border: none !important; width: 219px !important; text-align:center;        "
-                                type="date" id="date" name="date" value="{{ $single_invoice->date }}" />
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="date">Date</label>
+                            <div class="col-8">
+                                <input clang="form-control"
+                                    style="border: none !important; width: 219px !important; text-align:center;        "
+                                    type="date" id="date" name="date" value="{{ $single_invoice->date }}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="seller">Customer</label>
-                        <div class="col-8">
 
-                            <select name="buyer" class="select-buyer" required>
-                                <option value="{{ $single_invoice->customer->buyer_id }}" selected>
-                                    {{ $single_invoice->customer->company_name }}</option>
-                            </select>
+
+                    </div>
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-4 col-form-label" for="w_cus_name">Customer Name</label>
+                            <div class="col-7 d-flex align-items-center">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="w_cus_name" name="w_cus_name"
+                                    value="{{ $single_invoice->customer->company_name }}" required />
+                            </div>
                         </div>
                     </div>
+                    <div class="col-3">
 
+                        <div class="row mb-3">
+                            <label class="col-4 col-form-label" for="w_cus_num">Customer Number</label>
+                            <div class="col-7 d-flex align-items-center">
+                                <input class="form-control" style="width: 219px !important;" type="text"
+                                    id="w_cus_num" name="w_cus_num"
+                                    value="{{ $single_invoice->customer->company_phone_number }}" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <div class="row mb-3">
+            @elseif($type == 1)
+                <div class="row justify-content-around mt-0">
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
+                            <div class="col-8">
+                                <input clang="form-control" style="border: none !important; width: 219px !important;"
+                                    type="text" id="" name="" value="<?php $year = date('Y');
+                                    $lastTwoWords = substr($year, -2);
+                                    echo $rand = 'SI' . '-' . $year . '-' . $single_invoice->unique_id; ?>" />
+                                <input clang="form-control" type="hidden" id="unique_id" name="unique_id"
+                                    value="{{ $rand = $single_invoice->unique_id }}" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="date">Date</label>
+                            <div class="col-8">
+                                <input clang="form-control"
+                                    style="border: none !important; width: 219px !important; text-align:center;        "
+                                    type="date" id="date" name="date" value="{{ $single_invoice->date }}" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-3">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="seller">Customer</label>
+                            <div class="col-8">
+
+                                <select name="buyer" class="select-buyer" required>
+                                    <option value="{{ $single_invoice->customer->buyer_id }}" selected>
+                                        {{ $single_invoice->customer->company_name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        {{-- <div class="row mb-3">
                         <label class="col-3 col-form-label" for="sales_officer">Sales Officer</label>
                         <div class="col-8">
 
@@ -313,22 +363,23 @@
                                     {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
                             </select>
                         </div>
+                    </div> --}}
                     </div>
-                </div>
-                <div class="col-3">
+                    <div class="col-3">
 
 
-                    <div class="row mb-3">
-                        <label class="col-3 col-form-label" for="remark">Remarks</label>
-                        <div class="col-8">
+                        <div class="row mb-3">
+                            <label class="col-3 col-form-label" for="remark">Remarks</label>
+                            <div class="col-8">
 
-                            <input clang="form-control" style="width: 219px !important;" type="text" id="remark"
-                                name="remark" value="{{ $single_invoice->remark }}" />
+                                <input clang="form-control" style="width: 219px !important;" type="text"
+                                    id="remark" name="remark" value="{{ $single_invoice->remark }}" />
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <br />
 
@@ -438,13 +489,7 @@
             top: 104%;
             left: 69%;
         ">Discount:</label>
-                        <label
-                            style="
-            position: fixed;
-            top: 114%;
-            left: 69%;
-        ">Receive
-                            Account:</label>
+
                         <label
                             style="
             position: fixed;
@@ -488,6 +533,14 @@
                     left: 89.8%;
                     /* width: 190px !important; */
                 "=""="">
+                        @if ($type != 0)
+
+                        <label style="
+position: fixed;
+top: 114%;d
+left: 69%;
+">Receive
+                            Account:</label>
                         <div
                             style="
                         position: fixed;
@@ -501,6 +554,7 @@
                                     {{ $single_invoice->CashReceiveAccount->account_name ?? null }}</option>
                             </select>
                         </div>
+                        @endif
                         <input type="number" step="any" name="cash_receive" id="cash_receive"
                             value="{{ $single_invoice->cash_receive }}"
                             style="

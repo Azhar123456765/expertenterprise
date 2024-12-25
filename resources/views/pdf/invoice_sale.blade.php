@@ -19,7 +19,9 @@
          }
     </style> --}}
     <style>
-       
+       .ui.table td {
+    padding: .5em .5em !important;
+}
     </style>
     <div class="invoice-header">
         <div class="ui left aligned grid">
