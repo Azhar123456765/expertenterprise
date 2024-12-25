@@ -347,6 +347,9 @@
                                     ?>" />
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="col-3">
                         <div class="row mb-3">
                             <label class="col-3 col-form-label" for="buyer">Customer</label>
                             <div class="col-8">
@@ -361,22 +364,6 @@
                             <div class="col-8">
                                 <input class="form-control" style="width: 219px !important;" type="text"
                                     id="remark" name="remark" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row mb-3">
-                            <label class="col-4 col-form-label" for="w_cus_name">Customer Name</label>
-                            <div class="col-7 d-flex align-items-center">
-                                <input class="form-control" style="width: 219px !important;" type="text"
-                                    id="w_cus_name" name="w_cus_name" />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-4 col-form-label" for="w_cus_num">Customer Number</label>
-                            <div class="col-7 d-flex align-items-center">
-                                <input class="form-control" style="width: 219px !important;" type="text"
-                                    id="w_cus_num" name="w_cus_num" />
                             </div>
                         </div>
                     </div>
