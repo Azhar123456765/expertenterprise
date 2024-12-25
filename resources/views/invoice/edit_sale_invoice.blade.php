@@ -597,7 +597,7 @@ document.getElementById('imageAnchor').href = '';">
             data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + L">
             Last
         </a>
-        <a href="{{ Route('new_invoice_sale') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md"
+        <a href="{{ $type == 0 ? Route('new_invoice_sale', 0) : Route('new_invoice_sale') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md"
             id="add_more_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + M">
             Add More
         </a>
