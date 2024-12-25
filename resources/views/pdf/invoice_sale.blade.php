@@ -56,10 +56,10 @@
             </div>
             <div class="content">
                 <ul>
-                    <li> <strong> Name: {{ $single_data->customer->company_name }} </strong> </li>
-                    <li><strong> Address: </strong> {{ $single_data->customer->address }}</li>
-                    <li><strong> Phone: </strong> {{ $single_data->customer->phone_number }}</li>
-                    <li><strong> Email: </strong> {{ $single_data->customer->email }}</li>
+                    <li> <strong> Name: {{ $single_data->customer->company_name ?? null }} </strong> </li>
+                    <li><strong> Address: </strong> {{ $single_data->customer->address ?? null }}</li>
+                    <li><strong> Phone: </strong> {{ $single_data->customer->phone_number ?? null}}</li>
+                    <li><strong> Email: </strong> {{ $single_data->customer->email  ?? null}}</li>
                 </ul>
             </div>
         </div>
