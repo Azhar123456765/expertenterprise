@@ -767,47 +767,34 @@
         }
     });
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'f')) {
-            $("#iv-search").modal('show');
-            $("#iv-search #search-input").focus();
-        }
-    });
+    // Ignore key bindings if the focus is on an input, textarea, or contenteditable element
+    if ($(e.target).is('input, textarea, [contenteditable]')) {
+        return;
+    }
 
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
-            $("#first_btn")[0].click();
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
-            $("#previous_btn")[0].click();
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
-            $("#next_btn")[0].click();
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'l')) {
-            $("#last_btn")[0].click();
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
-            $("#edit")[0].click();
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'm')) {
-            $("#add_more_btn")[0].click();
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
-            $("#previous_btn")[0].click();
-        }
-    });
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'f')) {
+        $("#iv-search").modal('show');
+        $("#iv-search #search-input").focus();
+    }
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+        $("#first_btn")[0].click();
+    }
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+        $("#previous_btn")[0].click();
+    }
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+        $("#next_btn")[0].click();
+    }
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'l')) {
+        $("#last_btn")[0].click();
+    }
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
+        $("#edit")[0].click();
+    }
+    if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'm')) {
+        $("#add_more_btn")[0].click();
+    }
+});
 
     $('#search-btn').click(function(e) {
         e.preventDefault()
